@@ -36,10 +36,9 @@ class Semantic_loss_functions(object):
                                   1 - tf.keras.backend.epsilon())
         return tf.math.log(y_pred / (1 - y_pred))
 
-    def loss(self, y_true, y_pred):
+    def weighted_cross_entropyloss(self, y_true, y_pred):
         y_pred = self.convert_to_logits(y_pred)
         pos_weight = beta / (1 - beta)
-        # pos_weight=beta
         loss = tf.nn.weighted_cross_entropy_with_logits(logits=y_pred,
                                                         targets=y_true,
                                                         pos_weight=pos_weight)
@@ -68,7 +67,7 @@ class Semantic_loss_functions(object):
         softmax_matrix = sigmoided_matrix / K.sum(sigmoided_matrix, axis=0)
         return softmax_matrix
 
-    def dsc(self, y_true, y_pred):
+    def generalized_dice_coefficient(self, y_true, y_pred):
         smooth = 1.
         y_true_f = K.flatten(y_true)
         y_pred_f = K.flatten(y_pred)
@@ -78,7 +77,7 @@ class Semantic_loss_functions(object):
         return score
 
     def dice_loss(self, y_true, y_pred):
-        loss = 1 - self.dsc(y_true, y_pred)
+        loss = 1 - self.generalized_dice_coefficient(y_true, y_pred)
         return loss
 
     def bce_dice_loss(self, y_true, y_pred):
@@ -99,14 +98,14 @@ class Semantic_loss_functions(object):
         recall = (tp + smooth) / (tp + fn + smooth)
         return prec, recall
 
-    def tp(self, y_true, y_pred):
+    def true_positive(self, y_true, y_pred):
         smooth = 1
         y_pred_pos = K.round(K.clip(y_pred, 0, 1))
         y_pos = K.round(K.clip(y_true, 0, 1))
         tp = (K.sum(y_pos * y_pred_pos) + smooth) / (K.sum(y_pos) + smooth)
         return tp
 
-    def tn(self, y_true, y_pred):
+    def true_negative(self, y_true, y_pred):
         smooth = 1
         y_pred_pos = K.round(K.clip(y_pred, 0, 1))
         y_pred_neg = 1 - y_pred_pos
@@ -115,7 +114,7 @@ class Semantic_loss_functions(object):
         tn = (K.sum(y_neg * y_pred_neg) + smooth) / (K.sum(y_neg) + smooth)
         return tn
 
-    def tversky(self, y_true, y_pred):
+    def tversky_index(self, y_true, y_pred):
         y_true_pos = K.flatten(y_true)
         y_pred_pos = K.flatten(y_pred)
         true_pos = K.sum(y_true_pos * y_pred_pos)
@@ -126,10 +125,10 @@ class Semantic_loss_functions(object):
                     1 - alpha) * false_pos + smooth)
 
     def tversky_loss(self, y_true, y_pred):
-        return 1 - self.tversky(y_true, y_pred)
+        return 1 - self.tversky_index(y_true, y_pred)
 
     def focal_tversky(self, y_true, y_pred):
-        pt_1 = self.tversky(y_true, y_pred)
+        pt_1 = self.tversky_index(y_true, y_pred)
         gamma = 0.75
         return K.pow((1 - pt_1), gamma)
 
