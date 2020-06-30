@@ -26,4 +26,4 @@ If you find our code useful, please consider citing our work using the bibtex:
 }
 ```
 ## Summarized Loss functions and their use-cases
-![alt text]()
+![alt text](https://github.com/shruti-jadon/Semantic-Segmentation-Loss-Functions/blob/master/summary.png)
