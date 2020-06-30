@@ -25,3 +25,5 @@ If you find our code useful, please consider citing our work using the bibtex:
     primaryClass={eess.IV}
 }
 ```
+## Summarized Loss functions and their use-cases
+![alt text]()
