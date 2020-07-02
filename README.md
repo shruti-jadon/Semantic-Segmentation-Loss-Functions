@@ -13,6 +13,12 @@ We are still in process of adding more loss functions, so far we this repo consi
 7. Focal Tversky loss
 8. log-cosh dice loss (ours)
 
+This paper is extension of my work on traumatic brain lesion segmentation published at SPIE Medical Imaging'20.
+
+DOI: https://doi.org/10.1117/12.2566332
+
+Github Code: https://github.com/shruti-jadon/Traumatic-Brain-Lesions-Segmentation
+
 ## Citation
 If you find our code useful, please consider citing our work using the bibtex:
 ```
@@ -23,6 +29,15 @@ If you find our code useful, please consider citing our work using the bibtex:
     eprint={2006.14822},
     archivePrefix={arXiv},
     primaryClass={eess.IV}
+}
+@inproceedings{jadon2020comparative,
+  title={A comparative study of 2D image segmentation algorithms for traumatic brain lesions using CT data from the ProTECTIII multicenter clinical trial},
+  author={Jadon, Shruti and Leary, Owen P and Pan, Ian and Harder, Tyler J and Wright, David W and Merck, Lisa H and Merck, Derek L},
+  booktitle={Medical Imaging 2020: Imaging Informatics for Healthcare, Research, and Applications},
+  volume={11318},
+  pages={113180Q},
+  year={2020},
+  organization={International Society for Optics and Photonics}
 }
 ```
 ## Summarized Loss functions and their use-cases
