@@ -13,7 +13,7 @@ We are still in process of adding more loss functions, so far we this repo consi
 7. Focal Tversky loss
 8. log-cosh dice loss (ours)
 
-This paper is extension of my work on traumatic brain lesion segmentation published at SPIE Medical Imaging'20.
+This paper is extension of our work on traumatic brain lesion segmentation published at SPIE Medical Imaging'20.
 
 DOI: https://doi.org/10.1117/12.2566332
 
