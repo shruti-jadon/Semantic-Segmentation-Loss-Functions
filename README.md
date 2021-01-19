@@ -22,11 +22,13 @@ Github Code: https://github.com/shruti-jadon/Traumatic-Brain-Lesions-Segmentatio
 ## Citation
 If you find our code useful, please consider citing our work using the bibtex:
 ```
-@article{jadon2020survey,
+@inproceedings{jadon2020survey,
   title={A survey of loss functions for semantic segmentation},
   author={Jadon, Shruti},
-  journal={arXiv preprint arXiv:2006.14822},
-  year={2020}
+  booktitle={2020 IEEE Conference on Computational Intelligence in Bioinformatics and Computational Biology (CIBCB)},
+  pages={1--7},
+  year={2020},
+  organization={IEEE}
 }
 @inproceedings{jadon2020comparative,
   title={A comparative study of 2D image segmentation algorithms for traumatic brain lesions using CT data from the ProTECTIII multicenter clinical trial},
