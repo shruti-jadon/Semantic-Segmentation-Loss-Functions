@@ -42,15 +42,3 @@ If you find our code useful, please consider citing our work using the bibtex:
 ```
 ## Summarized Loss functions and their use-cases
 ![alt text](https://github.com/shruti-jadon/Semantic-Segmentation-Loss-Functions/blob/master/summary.png)
-
-
-## Other Similar Awesome Paper/Code. 
-1. Segmentation Loss Odyssey, https://github.com/JunMa11/SegLoss
-```
-@article{SegLossOdyssey,
-  title={Segmentation Loss Odyssey},
-  author={Ma Jun},
-  journal={arXiv preprint arXiv:2005.13449},
-  year={2020}
-}
-```
