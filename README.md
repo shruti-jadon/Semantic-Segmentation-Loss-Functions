@@ -1,4 +1,4 @@
-# Semantic-Segmentation-Loss-Functions
+# Semantic-Segmentation-Loss-Functions (SemSegLoss)
 This Repository is implementation of majority of Semantic Segmentation Loss Functions in Keras. Our Survey paper is available on arxiv: https://arxiv.org/abs/2006.14822
 
 In this paper we have summarized 15 such segmentation based loss functions that has been proven to provide state of results in different domain datasets.
