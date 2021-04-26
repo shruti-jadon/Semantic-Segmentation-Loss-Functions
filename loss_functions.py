@@ -11,7 +11,7 @@ smooth = 1
 
 class Semantic_loss_functions(object):
     def __init__(self):
-        pass
+        print ("semantic loss functions initialized")
 
     def dice_coef(self, y_true, y_pred):
         y_true_f = K.flatten(y_true)
