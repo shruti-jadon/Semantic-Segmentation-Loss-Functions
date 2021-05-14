@@ -1,5 +1,8 @@
 # Semantic-Segmentation-Loss-Functions (SemSegLoss)
-This Repository is implementation of majority of Semantic Segmentation Loss Functions in Keras. Our Survey paper is available on arxiv: https://arxiv.org/abs/2006.14822
+This Repository is implementation of majority of Semantic Segmentation Loss Functions in Keras. Our paper is available open-source on following sites:
+
+* Survey Paper DOI: https://doi.org/10.1117/12.2566332
+* Software Release DOI: https://doi.org/10.1016/j.simpa.2021.100078
 
 In this paper we have summarized 15 such segmentation based loss functions that has been proven to provide state of results in different domain datasets.
 
@@ -14,9 +17,6 @@ We are still in process of adding more loss functions, so far we this repo consi
 8. log-cosh dice loss (ours)
 
 This paper is extension of our work on traumatic brain lesion segmentation published at SPIE Medical Imaging'20.
-
-Survey Paper DOI: https://doi.org/10.1117/12.2566332
-Software Release DOI: https://doi.org/10.1016/j.simpa.2021.100078
 
 Github Code: https://github.com/shruti-jadon/Traumatic-Brain-Lesions-Segmentation
 
