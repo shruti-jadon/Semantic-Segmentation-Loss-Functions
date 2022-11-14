@@ -11,14 +11,14 @@ smooth = 1
 
 class Semantic_loss_functions(object):
     def __init__(self):
-        print ("semantic loss functions initialized")
+        print("semantic loss functions initialized")
 
     def dice_coef(self, y_true, y_pred):
         y_true_f = K.flatten(y_true)
         y_pred_f = K.flatten(y_pred)
         intersection = K.sum(y_true_f * y_pred_f)
         return (2. * intersection + K.epsilon()) / (
-                    K.sum(y_true_f) + K.sum(y_pred_f) + K.epsilon())
+                K.sum(y_true_f) + K.sum(y_pred_f) + K.epsilon())
 
     def sensitivity(self, y_true, y_pred):
         true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
@@ -57,7 +57,7 @@ class Semantic_loss_functions(object):
         logits = tf.math.log(y_pred / (1 - y_pred))
 
         loss = self.focal_loss_with_logits(logits=logits, targets=y_true,
-                                      alpha=alpha, gamma=gamma, y_pred=y_pred)
+                                           alpha=alpha, gamma=gamma, y_pred=y_pred)
 
         return tf.reduce_mean(loss)
 
@@ -73,7 +73,7 @@ class Semantic_loss_functions(object):
         y_pred_f = K.flatten(y_pred)
         intersection = K.sum(y_true_f * y_pred_f)
         score = (2. * intersection + smooth) / (
-                    K.sum(y_true_f) + K.sum(y_pred_f) + smooth)
+                K.sum(y_true_f) + K.sum(y_pred_f) + smooth)
         return score
 
     def dice_loss(self, y_true, y_pred):
@@ -122,7 +122,7 @@ class Semantic_loss_functions(object):
         false_pos = K.sum((1 - y_true_pos) * y_pred_pos)
         alpha = 0.7
         return (true_pos + smooth) / (true_pos + alpha * false_neg + (
-                    1 - alpha) * false_pos + smooth)
+                1 - alpha) * false_pos + smooth)
 
     def tversky_loss(self, y_true, y_pred):
         return 1 - self.tversky_index(y_true, y_pred)
@@ -135,3 +135,35 @@ class Semantic_loss_functions(object):
     def log_cosh_dice_loss(self, y_true, y_pred):
         x = self.dice_loss(y_true, y_pred)
         return tf.math.log((tf.exp(x) + tf.exp(-x)) / 2.0)
+
+    def jacard_similarity(self, y_true, y_pred):
+        """
+         Intersection-Over-Union (IoU), also known as the Jaccard Index
+        :param y_true:
+        :param y_pred:
+        :return:
+        """
+        y_true_f = K.flatten(y_true)
+        y_pred_f = K.flatten(y_pred)
+
+        intersection = K.sum(y_true_f * y_pred_f)
+        union = K.sum((y_true_f + y_pred_f) - (y_true_f * y_pred_f))
+        return intersection / union
+
+    def jacard_loss(self, y_true, y_pred):
+        """
+         Intersection-Over-Union (IoU), also known as the Jaccard loss
+        :param y_true:
+        :param y_pred:
+        :return:
+        """
+        return 1 - self.jacard_similarity(y_true, y_pred)
+
+    def ssim_loss(self, y_true, y_pred):
+        """
+        Structural Similarity Index (SSIM) loss
+        :param y_true: true labels
+        :param y_pred: predicted labels
+        :return:
+        """
+        return 1 - tf.image.ssim(y_true, y_pred, max_val=1)
