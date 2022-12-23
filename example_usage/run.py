@@ -3,7 +3,6 @@ import numpy as np
 import sys
 sys.path.append("./../")
 from loss_functions import *
-from hybrid_losses import *
 import nibabel as nib
 from sklearn.model_selection import train_test_split
 from keras.models import Model
@@ -104,12 +103,10 @@ def my_generator(x_train, y_train, batch_size):
         yield x_batch, y_batch
 
 semantic_loss = Semantic_loss_functions()
-hybrid_loss = HybridLossFunctions()
 
 model = get_small_unet_no_pool()
 model.compile(optimizer=Adam(lr=1e-3),
-              # loss=semantic_loss.basnet_hybrid_loss,
-              loss=hybrid_loss.basnet_hybrid_loss,
+              loss=semantic_loss.unet3p_hybrid_loss,
               metrics=[semantic_loss.dice_coef, semantic_loss.sensitivity, semantic_loss.specificity])
 learning_rate_reduction = ReduceLROnPlateau(monitor='val_dice_coef',
                                             patience=10,

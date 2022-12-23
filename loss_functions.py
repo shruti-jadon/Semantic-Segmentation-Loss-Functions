@@ -1,6 +1,6 @@
 import tensorflow as tf
 import keras.backend as K
-from keras.losses import binary_crossentropy
+from keras.losses import binary_crossentropy, BinaryCrossentropy
 
 beta = 0.25
 alpha = 0.25
@@ -139,9 +139,6 @@ class Semantic_loss_functions(object):
     def jacard_similarity(self, y_true, y_pred):
         """
          Intersection-Over-Union (IoU), also known as the Jaccard Index
-        :param y_true:
-        :param y_pred:
-        :return:
         """
         y_true_f = K.flatten(y_true)
         y_pred_f = K.flatten(y_pred)
@@ -153,17 +150,38 @@ class Semantic_loss_functions(object):
     def jacard_loss(self, y_true, y_pred):
         """
          Intersection-Over-Union (IoU), also known as the Jaccard loss
-        :param y_true:
-        :param y_pred:
-        :return:
         """
         return 1 - self.jacard_similarity(y_true, y_pred)
 
     def ssim_loss(self, y_true, y_pred):
         """
         Structural Similarity Index (SSIM) loss
-        :param y_true: true labels
-        :param y_pred: predicted labels
-        :return:
         """
         return 1 - tf.image.ssim(y_true, y_pred, max_val=1)
+
+    def unet3p_hybrid_loss(self, y_true, y_pred):
+        """
+        Hybrid loss proposed in UNET 3+ (https://arxiv.org/ftp/arxiv/papers/2004/2004.08790.pdf)
+        Hybrid loss for segmentation in three-level hierarchy – pixel, patch and map-level,
+        which is able to capture both large-scale and fine structures with clear boundaries.
+        """
+        focal_loss = self.focal_loss(y_true, y_pred)
+        ms_ssim_loss = self.ssim_loss(y_true, y_pred)
+        jacard_loss = self.jacard_loss(y_true, y_pred)
+
+        return focal_loss + ms_ssim_loss + jacard_loss
+
+    def basnet_hybrid_loss(self, y_true, y_pred):
+        """
+        Hybrid loss proposed in BASNET (https://arxiv.org/pdf/2101.04704.pdf)
+        The hybrid loss is a combination of the binary cross entropy, structural similarity
+        and intersection-over-union losses, which guide the network to learn
+        three-level (i.e., pixel-, patch- and map- level) hierarchy representations.
+        """
+        bce_loss = BinaryCrossentropy(from_logits=False)
+        bce_loss = bce_loss(y_true, y_pred)
+
+        ms_ssim_loss = self.ssim_loss(y_true, y_pred)
+        jacard_loss = self.jacard_loss(y_true, y_pred)
+
+        return bce_loss + ms_ssim_loss + jacard_loss

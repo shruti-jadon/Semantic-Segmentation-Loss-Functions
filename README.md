@@ -17,10 +17,8 @@ Recently new los functions have also been added and we are still in process of a
 8. log-cosh dice loss (ours)
 9. Jaccard/IoU loss
 10. SSIM loss
-
-Hybrid losses
-1. [Unet3+](https://arxiv.org/ftp/arxiv/papers/2004/2004.08790.pdf) loss
-2. [BASNet](https://arxiv.org/pdf/2101.04704.pdf) loss
+11. [Unet3+](https://arxiv.org/ftp/arxiv/papers/2004/2004.08790.pdf) loss
+12. [BASNet](https://arxiv.org/pdf/2101.04704.pdf) loss
 
 
 This paper is extension of our work on traumatic brain lesion segmentation published at SPIE Medical Imaging'20.
